@@ -2,11 +2,13 @@ using InertiaCore;
 using InertiaCore.Models;
 using InertiaCore.Ssr;
 using InertiaCore.Utils;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Moq;
 
@@ -21,12 +23,14 @@ public partial class Tests
     {
         var contextAccessor = new Mock<IHttpContextAccessor>();
         var httpClientFactory = new Mock<IHttpClientFactory>();
+        var config = new Mock<IConfiguration>();
+        var webhost = new Mock<IWebHostEnvironment>();
 
         var gateway = new Gateway(httpClientFactory.Object);
         var options = new Mock<IOptions<InertiaOptions>>();
         options.SetupGet(x => x.Value).Returns(new InertiaOptions());
 
-        _factory = new ResponseFactory(contextAccessor.Object, gateway, options.Object);
+        _factory = new ResponseFactory(contextAccessor.Object, gateway, options.Object, config.Object, webhost.Object);
     }
 
     /// <summary>
