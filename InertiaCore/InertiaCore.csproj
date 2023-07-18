@@ -1,14 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>0.0.7</Version>
+        <Version>0.0.1</Version>
         <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
         <PackageId>AspNetCore.InertiaCore</PackageId>
-        <Authors>kapi2289</Authors>
+        <Authors>Weston Walker</Authors>
         <Description>Inertia.js ASP.NET Adapter. https://inertiajs.com/</Description>
-        <PackageProjectUrl>https://github.com/kapi2289/InertiaCore</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/kapi2289/InertiaCore</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/spark-dotnet</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/spark-dotnet/spark-inertiajs</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
