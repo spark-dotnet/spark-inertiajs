@@ -5,8 +5,11 @@ using InertiaCore.Extensions;
 using InertiaCore.Models;
 using InertiaCore.Ssr;
 using InertiaCore.Utils;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 namespace InertiaCore;
@@ -29,11 +32,13 @@ internal class ResponseFactory : IResponseFactory
     private readonly IHttpContextAccessor _contextAccessor;
     private readonly IGateway _gateway;
     private readonly IOptions<InertiaOptions> _options;
+    private readonly IConfiguration _config;
+    private readonly IWebHostEnvironment _host;
 
     private object? _version;
 
-    public ResponseFactory(IHttpContextAccessor contextAccessor, IGateway gateway, IOptions<InertiaOptions> options) =>
-        (_contextAccessor, _gateway, _options) = (contextAccessor, gateway, options);
+    public ResponseFactory(IHttpContextAccessor contextAccessor, IGateway gateway, IOptions<InertiaOptions> options, IConfiguration config, IWebHostEnvironment host) =>
+        (_contextAccessor, _gateway, _options, _config, _host) = (contextAccessor, gateway, options, config, host);
 
     public Response Render(string component, object? props = null)
     {
@@ -83,6 +88,32 @@ internal class ResponseFactory : IResponseFactory
         var encoded = WebUtility.HtmlEncode(data);
 
         return new HtmlString($"<div id=\"app\" data-page=\"{encoded}\"></div>");
+    }
+
+    public IHtmlContent Scripts()
+    {
+        // test env
+        if (_host.IsProduction())
+        {
+            var css = $@"<script src=""~/{_config.GetSection("Vite:Build:OutputDir").Value}/app.js""></script>";
+            return new HtmlString(css);
+        }
+        else
+        {
+            var css = $@"<script type=""module"" src=""http://localhost:{_config.GetSection("Vite:Port").Value}/Resources/Js/app.js""></script>";
+            return new HtmlString(css);
+        }
+    }
+
+    public IHtmlContent Css()
+    {
+        // test env
+        if (_host.IsProduction())
+        {
+            var css = $@"<link rel=""stylesheet"" href=""~/{_config.GetSection("Vite:Build:OutputDir").Value}/app.css"" />";
+            return new HtmlString(css);
+        }
+        return new HtmlString($"");
     }
 
     public void Version(object? version) => _version = version;
