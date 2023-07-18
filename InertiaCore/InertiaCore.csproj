@@ -3,8 +3,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <Version>0.0.1</Version>
-        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
-        <PackageId>AspNetCore.InertiaCore</PackageId>
+        <TargetFrameworks>net7.0</TargetFrameworks>
+		<Title>Spark.NET InertiaJS Adapter</Title>
+        <PackageId>Spark.InertiaJs</PackageId>
         <Authors>Weston Walker</Authors>
         <Description>Inertia.js ASP.NET Adapter. https://inertiajs.com/</Description>
         <PackageProjectUrl>https://github.com/spark-dotnet</PackageProjectUrl>
@@ -13,7 +14,7 @@
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>Inertia,Inertiajs,ASPNET,Vue</PackageTags>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
